@@ -15,7 +15,7 @@ Ensure you have the TypeScript compiler installed:
 npm install -g typescript
 2. Setup & Execution
 # Clone the repository
-git clone [https://github.com/YOUR_USERNAME/task-1-adv.git](https://github.com/YOUR_USERNAME/task-1-adv.git)
+git clone [https://github.com/ayazeabali/task-1-adv.git]
 
 # Navigate to project directory
 cd task-1-adv
