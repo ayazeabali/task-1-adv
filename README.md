@@ -23,6 +23,12 @@ cd task-1-adv
 # Compile TypeScript to JavaScript
 tsc app.ts
 
+# Navigate to project directory
+cd task-1-adv
+
+# Compile TypeScript to JavaScript
+tsc app.ts
+
 
 📸 Screenshots:
 ### Home Screen
