@@ -15,7 +15,13 @@ Ensure you have the TypeScript compiler installed:
 npm install -g typescript
 2. Setup & Execution
 # Clone the repository
-git clone [https://github.com/ayazeabali/task-1-adv.git]
+git clone [https://github.com/ayazeabali/task-1-adv.git](https://github.com/ayazeabali/task-1-adv.git)
+
+# Navigate to project directory
+cd task-1-adv
+
+# Compile TypeScript to JavaScript
+tsc app.ts
 
 # Navigate to project directory
 cd task-1-adv
@@ -24,12 +30,12 @@ cd task-1-adv
 tsc app.ts
 
 
-📸 Screenshots:
+Screenshots:
 ### Home Screen
-![Home](./screenshotes/Home.png)
+![Home](./screenshots/Home.png)
 
-### Add Book
-![Add Book](./screenshotes/add_book.png)
+###  Add Book
+![Add Book](./screenshots/add_book.png)
 
-### View Details
+###  View Details
 ![Details](./screenshotes/view%20detailes.png)
