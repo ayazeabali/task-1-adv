@@ -32,10 +32,10 @@ tsc app.ts
 
 Screenshots:
 ### Home Screen
-![Home](./screenshotes/Home.png)
+![Home](./screenshots/Home.png)
 
 ###  Add Book
-![Add Book](./screenshotes/add_book.png)
+![Add Book](./screenshots/add_book.png)
 
 ###  View Details
 ![Details](./screenshotes/view%20detailes.png)
