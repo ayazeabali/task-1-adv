@@ -37,4 +37,3 @@ tsc app.ts
 ## View Details
 ![View Details](screenshots/view_detailes.png)
 
-<img width="325" height="409" alt="view_detailes" src="https://github.com/user-attachments/assets/a67e29d7-e40e-4a10-9363-0d069ad7fd03" />
