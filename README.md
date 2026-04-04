@@ -28,7 +28,6 @@ cd task-1-adv
 
 # Compile TypeScript to JavaScript
 tsc app.ts
-
 ## Home Screen
 ![Home](https://github.com/user-attachments/assets/05a7d12a-4579-4955-80d1-35e8fdfbf86b)
 
@@ -41,5 +40,3 @@ tsc app.ts
 
 ## View Details
 ![Details](https://github.com/user-attachments/assets/f15524a3-3276-4ad9-ac97-3ff133af7710)
-
-<img src="https://github.com/user-attachments/assets/f15524a3-3276-4ad9-ac97-3ff133af7710" width="325" />
