@@ -19,17 +19,12 @@ git clone [https://github.com/ayazeabali/task-1-adv.git](https://github.com/ayaz
 
 # Navigate to project directory
 cd task-1-adv
-
 # Compile TypeScript to JavaScript
 tsc app.ts
-
-# Navigate to project directory
-cd task-1-adv
-
-# Compile TypeScript to JavaScript
-tsc app.ts
+ذذذ
+ذ
 ## Home Screen
-![Home](screenshots/‌Home.png) 
+![Home](screenshots/Home.png)
 
 ## Add Book
 ![Add Book](screenshots/add_book.png)
