@@ -29,16 +29,12 @@ cd task-1-adv
 # Compile TypeScript to JavaScript
 tsc app.ts
 ## Home Screen
-<img width="1358" height="636" alt="Home" src="https://github.com/user-attachments/assets/83c1f612-bdd6-4d91-bfb9-3387006f2733" />
-
----
+![Home](screenshots/‌Home.png) 
 
 ## Add Book
-
-<img width="1281" height="594" alt="add_book" src="https://github.com/user-attachments/assets/8fc13d61-8cfb-40dc-b583-3a0e3b8323d1" />
-
----
+![Add Book](screenshots/add_book.png)
 
 ## View Details
+![View Details](screenshots/view_detailes.png)
 
 <img width="325" height="409" alt="view_detailes" src="https://github.com/user-attachments/assets/a67e29d7-e40e-4a10-9363-0d069ad7fd03" />
