@@ -30,12 +30,13 @@ cd task-1-adv
 tsc app.ts
 
 
-screenshots:
 ### Home Screen
 ![Home](./screenshots/Home.png)
 
-###  Add Book
+### Add Book
 ![Add Book](./screenshots/add_book.png)
 
+### View Details
+![Details](./screenshots/view%20detailes.png)
 ###  View Details
 ![Details](./screenshotes/view%20detailes.png)
