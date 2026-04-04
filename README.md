@@ -30,7 +30,7 @@ cd task-1-adv
 tsc app.ts
 
 
-Screenshots:
+screenshots:
 ### Home Screen
 ![Home](./screenshots/Home.png)
 
