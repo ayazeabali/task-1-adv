@@ -30,11 +30,9 @@ cd task-1-adv
 tsc app.ts
 
 
-### Home Screen
-![Home](./screenshots/Home.png)
 
-### Add Book
-![Add Book](./screenshots/add_book.png)
+<img width="1358" height="636" alt="Home" src="https://github.com/user-attachments/assets/05a7d12a-4579-4955-80d1-35e8fdfbf86b" />
 
-### View Details
-![Details](./screenshots/view_detailes.png)
+<img width="1281" height="594" alt="add_book" src="https://github.com/user-attachments/assets/751d9efb-0fb6-477f-b335-540a217e3251" />
+
+<img width="325" height="409" alt="view_detailes" src="https://github.com/user-attachments/assets/f15524a3-3276-4ad9-ac97-3ff133af7710" />
