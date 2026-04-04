@@ -37,6 +37,6 @@ tsc app.ts
 ![Add Book](./screenshots/add_book.png)
 
 ### View Details
-![Details](./screenshots/view%20detailes.png)
-###  View Details
+screenshots\view_detailes.png
+screenshots\view_detailes.png###  View Details
 ![Details](./screenshotes/view%20detailes.png)
