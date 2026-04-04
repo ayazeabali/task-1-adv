@@ -1,13 +1,13 @@
-# 📚 Library Management System
+#  Library Management System
 
-## 📖 Overview
+##  Overview
 
 An educational Electronic Library Management System built from scratch using **Vanilla TypeScript**.
 This project focuses on implementing core **Object-Oriented Programming (OOP)** principles to manage a collection of books, including specialized reference materials.
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 ### 1. Prerequisites
 
@@ -34,19 +34,19 @@ tsc app.ts
 
 ---
 
-## 🏠 Home Screen
+##  Home Screen
 
 ![Home](screenshots/Home.png)
 
 ---
 
-## ➕ Add Book
+##  Add Book
 
 ![Add Book](screenshots/add_book.png)
 
 ---
 
-## 🔍 View Details
+##  View Details
 
 ![View Details](screenshots/view_detailes.png)
 
