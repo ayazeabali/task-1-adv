@@ -1,56 +1,65 @@
-/**
- * @function render
- * @description Dynamic UI rendering. 
- * Notice the use of POLYMORPHISM: calling book.displayInfo() will execute 
- * different logic depending on whether the object is a Book or ReferenceBook.
- */
 import { Library } from "./Library.js";
 import { Book } from "./Book.js";
 import { ReferenceBook } from "./ReferenceBook.js";
+import { BookCategory } from "./BookCategory.js"; // ✅ استيراد enum
 
-const myLibrary = new Library();
+declare global {
+    interface Window {
+        toggleStatus: (title: string) => void;
+        deleteBook: (title: string) => void;
+    }
+}
 
-myLibrary.addBook(new Book("Clean Code", "Robert C. Martin", "Programming"));
-myLibrary.addBook(new ReferenceBook("Oxford Dictionary", "Oxford Press", "Languages", "Shelf-A1"));
-myLibrary.addBook(new Book("Sapiens", "Yuval Noah Harari", "History"));
+const myLibrary = new Library<Book>(); 
 
-const bookGrid = document.getElementById("bookGrid") as HTMLElement;
-const searchInput = document.getElementById("searchInput") as HTMLInputElement;
-const categoryFilter = document.getElementById("categoryFilter") as HTMLSelectElement;
+// إضافة كتب تجريبية
+myLibrary.addBook(new Book("Clean Code", "Robert C. Martin", BookCategory.Programming));
+myLibrary.addBook(new ReferenceBook("Oxford Dictionary", "Oxford Press", BookCategory.Languages, "Shelf-A1"));
+myLibrary.addBook(new Book("Sapiens", "Yuval Noah Harari", BookCategory.History));
 
-const modal = document.getElementById("formModal") as HTMLElement;
-const openModalBtn = document.getElementById("openModalBtn") as HTMLButtonElement;
-const closeBtn = document.querySelector(".close-btn") as HTMLElement;
-
-
-openModalBtn.onclick = () => {
-    modal.style.display = "block";
+const elements = {
+    bookGrid: document.getElementById("bookGrid") as HTMLElement,
+    searchInput: document.getElementById("searchInput") as HTMLInputElement,
+    categoryFilter: document.getElementById("categoryFilter") as HTMLSelectElement,
+    modal: document.getElementById("formModal") as HTMLElement,
+    openModalBtn: document.getElementById("openModalBtn") as HTMLButtonElement,
+    closeBtn: document.querySelector(".close-btn") as HTMLElement,
+    addBtn: document.getElementById("addBtn") as HTMLButtonElement,
+    inputs: {
+        title: document.getElementById("newTitle") as HTMLInputElement,
+        author: document.getElementById("newAuthor") as HTMLInputElement,
+        category: document.getElementById("newCat") as HTMLSelectElement,
+        location: document.getElementById("newLoc") as HTMLInputElement,
+    }
 };
 
-closeBtn.onclick = () => {
-    modal.style.display = "none";
-};
-
+// فتح / غلق الـ modal
+elements.openModalBtn.onclick = () => elements.modal.style.display = "block";
+elements.closeBtn.onclick = () => elements.modal.style.display = "none";
 window.onclick = (event: MouseEvent) => {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
+    if (event.target === elements.modal) elements.modal.style.display = "none";
 };
 
-function render() {
-    const term = searchInput.value;
-    const cat = categoryFilter.value;
-    
-    let books = myLibrary.searchBooks(term);
-    if (cat !== "all") {
-        books = books.filter(b => b.category === cat);
+// دالة render مع دعم enum
+function render(): void {
+    const searchTerm = elements.searchInput.value.toLowerCase();
+    const selectedCat = elements.categoryFilter.value as BookCategory | "all";
+
+    let books = myLibrary.filterByCategory(selectedCat);
+
+    if (searchTerm) {
+        books = books.filter(b =>
+            b.title.toLowerCase().includes(searchTerm) ||
+            b.author.toLowerCase().includes(searchTerm)
+        );
     }
 
-    bookGrid.innerHTML = "";
+    elements.bookGrid.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+
     books.forEach(book => {
         const card = document.createElement("div");
         card.className = `card ${!book.isAvailable ? "unavailable" : ""}`;
-        
         card.innerHTML = `
             <div class="card-header">
                 <h3>${book.title}</h3>
@@ -79,41 +88,50 @@ function render() {
                 </button>
             </div>
         `;
-        bookGrid.appendChild(card);
+        fragment.appendChild(card);
     });
+
+    elements.bookGrid.appendChild(fragment);
 }
-(window as any).toggleStatus = (title: string) => {
+
+// دوال global
+window.toggleStatus = (title: string) => {
     myLibrary.toggleAvailability(title);
     render();
 };
 
-(window as any).deleteBook = (title: string) => {
-    if(confirm("Are you sure you want to delete this book?")) {
+window.deleteBook = (title: string) => {
+    if(confirm(`Are you sure you want to delete "${title}"?`)) {
         myLibrary.removeBook(title);
         render();
     }
 };
 
-searchInput.addEventListener("input", render);
-categoryFilter.addEventListener("change", render);
+// أحداث البحث والفلترة
+elements.searchInput.addEventListener("input", render);
+elements.categoryFilter.addEventListener("change", render);
 
-const addBtn = document.getElementById("addBtn");
-addBtn?.addEventListener("click", () => {
-    const t = (document.getElementById("newTitle") as HTMLInputElement).value;
-    const a = (document.getElementById("newAuthor") as HTMLInputElement).value;
-    const c = (document.getElementById("newCat") as HTMLSelectElement).value;
-    const l = (document.getElementById("newLoc") as HTMLInputElement).value;
+// إضافة كتاب جديد من modal
+elements.addBtn?.addEventListener("click", () => {
+    const { title, author, category, location } = elements.inputs;
+    const titleVal = title.value.trim();
+    const authorVal = author.value.trim();
+    const locationVal = location.value.trim();
 
-    if (t && a) {
-        const b = l ? new ReferenceBook(t, a, c, l) : new Book(t, a, c);
-        myLibrary.addBook(b);
+    if (titleVal && authorVal) {
+        const catValue = category.value as BookCategory;
+
+        const newBook = locationVal
+            ? new ReferenceBook(titleVal, authorVal, catValue, locationVal)
+            : new Book(titleVal, authorVal, catValue);
+
+        myLibrary.addBook(newBook);
         render();
-        
-        modal.style.display = "none"; 
 
-        (document.getElementById("newTitle") as HTMLInputElement).value = "";
-        (document.getElementById("newAuthor") as HTMLInputElement).value = "";
-        (document.getElementById("newLoc") as HTMLInputElement).value = "";
+        elements.modal.style.display = "none";
+        title.value = "";
+        author.value = "";
+        location.value = "";
     } else {
         alert("Please fill Title and Author");
     }

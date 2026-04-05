@@ -3,15 +3,24 @@
  * @description Base class demonstrating ENCAPSULATION and ABSTRACTION.
  * Uses private fields (#) to protect data and getters to provide controlled access.
  */
+
+import { BookCategory } from "./BookCategory.js"; // ✅ استيراد enum
+
 export class Book {
     #title: string;
     #author: string;
-    #category: string;
+    #category: BookCategory; // ✅ بدل string
     #year: number;
     #copies: number;
     #isAvailable: boolean;
 
-    constructor(title: string, author: string, category: string, year: number = 2024, copies: number = 1) {
+    constructor(
+        title: string, 
+        author: string, 
+        category: BookCategory, // ✅ بدل string
+        year: number = 2024, 
+        copies: number = 1
+    ) {
         this.#title = title;
         this.#author = author;
         this.#category = category;
@@ -20,6 +29,7 @@ export class Book {
         this.#isAvailable = true;
     }
 
+    // 🔑 Getters
     get title() { return this.#title; }
     get author() { return this.#author; }
     get category() { return this.#category; }

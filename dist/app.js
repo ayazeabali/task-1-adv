@@ -1,41 +1,45 @@
-/**
- * @function render
- * @description Dynamic UI rendering.
- * Notice the use of POLYMORPHISM: calling book.displayInfo() will execute
- * different logic depending on whether the object is a Book or ReferenceBook.
- */
 import { Library } from "./Library.js";
 import { Book } from "./Book.js";
 import { ReferenceBook } from "./ReferenceBook.js";
+import { BookCategory } from "./BookCategory.js"; // ✅ استيراد enum
 const myLibrary = new Library();
-myLibrary.addBook(new Book("Clean Code", "Robert C. Martin", "Programming"));
-myLibrary.addBook(new ReferenceBook("Oxford Dictionary", "Oxford Press", "Languages", "Shelf-A1"));
-myLibrary.addBook(new Book("Sapiens", "Yuval Noah Harari", "History"));
-const bookGrid = document.getElementById("bookGrid");
-const searchInput = document.getElementById("searchInput");
-const categoryFilter = document.getElementById("categoryFilter");
-const modal = document.getElementById("formModal");
-const openModalBtn = document.getElementById("openModalBtn");
-const closeBtn = document.querySelector(".close-btn");
-openModalBtn.onclick = () => {
-    modal.style.display = "block";
+// إضافة كتب تجريبية
+myLibrary.addBook(new Book("Clean Code", "Robert C. Martin", BookCategory.Programming));
+myLibrary.addBook(new ReferenceBook("Oxford Dictionary", "Oxford Press", BookCategory.Languages, "Shelf-A1"));
+myLibrary.addBook(new Book("Sapiens", "Yuval Noah Harari", BookCategory.History));
+const elements = {
+    bookGrid: document.getElementById("bookGrid"),
+    searchInput: document.getElementById("searchInput"),
+    categoryFilter: document.getElementById("categoryFilter"),
+    modal: document.getElementById("formModal"),
+    openModalBtn: document.getElementById("openModalBtn"),
+    closeBtn: document.querySelector(".close-btn"),
+    addBtn: document.getElementById("addBtn"),
+    inputs: {
+        title: document.getElementById("newTitle"),
+        author: document.getElementById("newAuthor"),
+        category: document.getElementById("newCat"),
+        location: document.getElementById("newLoc"),
+    }
 };
-closeBtn.onclick = () => {
-    modal.style.display = "none";
-};
+// فتح / غلق الـ modal
+elements.openModalBtn.onclick = () => elements.modal.style.display = "block";
+elements.closeBtn.onclick = () => elements.modal.style.display = "none";
 window.onclick = (event) => {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
+    if (event.target === elements.modal)
+        elements.modal.style.display = "none";
 };
+// دالة render مع دعم enum
 function render() {
-    const term = searchInput.value;
-    const cat = categoryFilter.value;
-    let books = myLibrary.searchBooks(term);
-    if (cat !== "all") {
-        books = books.filter(b => b.category === cat);
+    const searchTerm = elements.searchInput.value.toLowerCase();
+    const selectedCat = elements.categoryFilter.value;
+    let books = myLibrary.filterByCategory(selectedCat);
+    if (searchTerm) {
+        books = books.filter(b => b.title.toLowerCase().includes(searchTerm) ||
+            b.author.toLowerCase().includes(searchTerm));
     }
-    bookGrid.innerHTML = "";
+    elements.bookGrid.innerHTML = "";
+    const fragment = document.createDocumentFragment();
     books.forEach(book => {
         const card = document.createElement("div");
         card.className = `card ${!book.isAvailable ? "unavailable" : ""}`;
@@ -67,35 +71,41 @@ function render() {
                 </button>
             </div>
         `;
-        bookGrid.appendChild(card);
+        fragment.appendChild(card);
     });
+    elements.bookGrid.appendChild(fragment);
 }
+// دوال global
 window.toggleStatus = (title) => {
     myLibrary.toggleAvailability(title);
     render();
 };
 window.deleteBook = (title) => {
-    if (confirm("Are you sure you want to delete this book?")) {
+    if (confirm(`Are you sure you want to delete "${title}"?`)) {
         myLibrary.removeBook(title);
         render();
     }
 };
-searchInput.addEventListener("input", render);
-categoryFilter.addEventListener("change", render);
-const addBtn = document.getElementById("addBtn");
-addBtn?.addEventListener("click", () => {
-    const t = document.getElementById("newTitle").value;
-    const a = document.getElementById("newAuthor").value;
-    const c = document.getElementById("newCat").value;
-    const l = document.getElementById("newLoc").value;
-    if (t && a) {
-        const b = l ? new ReferenceBook(t, a, c, l) : new Book(t, a, c);
-        myLibrary.addBook(b);
+// أحداث البحث والفلترة
+elements.searchInput.addEventListener("input", render);
+elements.categoryFilter.addEventListener("change", render);
+// إضافة كتاب جديد من modal
+elements.addBtn?.addEventListener("click", () => {
+    const { title, author, category, location } = elements.inputs;
+    const titleVal = title.value.trim();
+    const authorVal = author.value.trim();
+    const locationVal = location.value.trim();
+    if (titleVal && authorVal) {
+        const catValue = category.value;
+        const newBook = locationVal
+            ? new ReferenceBook(titleVal, authorVal, catValue, locationVal)
+            : new Book(titleVal, authorVal, catValue);
+        myLibrary.addBook(newBook);
         render();
-        modal.style.display = "none";
-        document.getElementById("newTitle").value = "";
-        document.getElementById("newAuthor").value = "";
-        document.getElementById("newLoc").value = "";
+        elements.modal.style.display = "none";
+        title.value = "";
+        author.value = "";
+        location.value = "";
     }
     else {
         alert("Please fill Title and Author");

@@ -6,11 +6,12 @@
 export class Book {
     #title;
     #author;
-    #category;
+    #category; // ✅ بدل string
     #year;
     #copies;
     #isAvailable;
-    constructor(title, author, category, year = 2024, copies = 1) {
+    constructor(title, author, category, // ✅ بدل string
+    year = 2024, copies = 1) {
         this.#title = title;
         this.#author = author;
         this.#category = category;
@@ -18,6 +19,7 @@ export class Book {
         this.#copies = copies;
         this.#isAvailable = true;
     }
+    // 🔑 Getters
     get title() { return this.#title; }
     get author() { return this.#author; }
     get category() { return this.#category; }

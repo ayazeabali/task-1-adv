@@ -1,31 +1,26 @@
-/**
- * @class Library
- * @description Acting as a Controller to manage the collection of books.
- * Encapsulates the book array and provides clean methods for searching and filtering.
- */
 import { Book } from "./Book.js";
+import { BookCategory } from "./BookCategory.js"; 
 
-export class Library {
-    #books: Book[] = [];
+export class Library<T extends Book> {
+    #books: T[] = []; 
 
-    addBook(book: Book): void {
+    addBook(book: T): void {
         this.#books.push(book);
     }
 
-    removeBook(title: string): void {
-        this.#books = this.#books.filter(b => b.title !== title);
+    searchBooks(term: string = "", category: BookCategory | "all" = BookCategory.All): T[] {
+        const lowerTerm = term.toLowerCase().trim();
+
+        return this.#books.filter((b: T) => {
+            const matchesCategory = category === BookCategory.All || b.category === category;
+            const matchesTerm = b.title.toLowerCase().includes(lowerTerm) || 
+                                b.author.toLowerCase().includes(lowerTerm);
+            return matchesCategory && matchesTerm;
+        });
     }
 
-    searchBooks(keyword: string): Book[] {
-        return this.#books.filter(b =>
-            b.title.toLowerCase().includes(keyword.toLowerCase()) ||
-            b.author.toLowerCase().includes(keyword.toLowerCase())
-        );
-    }
-
-    filterByCategory(category: string): Book[] {
-        if (category === "all") return this.#books;
-        return this.#books.filter(b => b.category === category);
+    filterByCategory(category: BookCategory | "all"): T[] {
+        return this.searchBooks("", category); 
     }
 
     toggleAvailability(title: string): void {
@@ -33,7 +28,7 @@ export class Library {
         if (book) book.toggleAvailability();
     }
 
-    getAllBooks(): Book[] {
-        return [...this.#books];
+    removeBook(title: string): void {
+        this.#books = this.#books.filter(b => b.title !== title);
     }
 }
