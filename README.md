@@ -39,8 +39,8 @@ task-1-adv/
 └── README.md          
 ```
 ---
-Installation
-Prerequisites
+# Installation
+## Prerequisites
 
 Make sure you have Node.js and TypeScript installed:
 
