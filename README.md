@@ -1,5 +1,5 @@
-Library Management System
-Overview
+# Library Management System
+## Overview
 
 An educational Electronic Library Management System built entirely using Vanilla TypeScript, HTML, and CSS.
 This project demonstrates core Object-Oriented Programming (OOP) principles such as:
@@ -12,7 +12,8 @@ Polymorphism (displayInfo() override in ReferenceBook)
 The system allows users to manage a collection of books, including specialized reference materials with location codes and editions.
 
 ---
-Features
+# Features
+
 Display books as cards with Title, Author, Category, Availability
 Search books by title or author
 Filter books by category using a dropdown
@@ -23,8 +24,8 @@ Reference books display additional info (Location Code & Edition)
 Responsive UI with modern layout and interactive cards
 
 ---
-Project Structure
-
+# Project Structure
+``` bash
 task-1-adv/
 │
 ├── index.html          # Main interface
@@ -36,7 +37,7 @@ task-1-adv/
 ├── BookCategory.ts     # Enum for book categories
 ├── screenshots/        # Screenshots for README
 └── README.md          
-
+```
 ---
 Installation
 Prerequisites
