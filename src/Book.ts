@@ -4,12 +4,12 @@
  * Uses private fields (#) to protect data and getters to provide controlled access.
  */
 
-import { BookCategory } from "./BookCategory.js"; // ✅ استيراد enum
+import { BookCategory } from "./BookCategory.js"; 
 
 export class Book {
     #title: string;
     #author: string;
-    #category: BookCategory; // ✅ بدل string
+    #category: BookCategory; 
     #year: number;
     #copies: number;
     #isAvailable: boolean;
@@ -17,7 +17,7 @@ export class Book {
     constructor(
         title: string, 
         author: string, 
-        category: BookCategory, // ✅ بدل string
+        category: BookCategory, 
         year: number = 2024, 
         copies: number = 1
     ) {
@@ -29,7 +29,7 @@ export class Book {
         this.#isAvailable = true;
     }
 
-    // 🔑 Getters
+   
     get title() { return this.#title; }
     get author() { return this.#author; }
     get category() { return this.#category; }

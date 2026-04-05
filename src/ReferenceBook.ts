@@ -1,5 +1,15 @@
+/**
+ * Class: ReferenceBook
+ * 
+ * Represents a reference book in the library
+ * Inherits from Book and adds:
+ * - locationCode: Shelf or section code
+ * - edition: Edition number
+ * 
+ * Overrides displayInfo() to show additional details
+ */
 import { Book } from "./Book.js";
-import { BookCategory } from "./BookCategory.js"; // ✅ استيراد enum
+import { BookCategory } from "./BookCategory.js"; 
 
 export class ReferenceBook extends Book {
     #locationCode: string;
@@ -8,7 +18,7 @@ export class ReferenceBook extends Book {
     constructor(
         title: string, 
         author: string, 
-        category: BookCategory, // ✅ النوع الصحيح
+        category: BookCategory, 
         locationCode: string, 
         year: number = 2024, 
         edition: number = 1

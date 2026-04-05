@@ -1,9 +1,8 @@
 import { Library } from "./Library.js";
 import { Book } from "./Book.js";
 import { ReferenceBook } from "./ReferenceBook.js";
-import { BookCategory } from "./BookCategory.js"; // ✅ استيراد enum
+import { BookCategory } from "./BookCategory.js";
 const myLibrary = new Library();
-// إضافة كتب تجريبية
 myLibrary.addBook(new Book("Clean Code", "Robert C. Martin", BookCategory.Programming));
 myLibrary.addBook(new ReferenceBook("Oxford Dictionary", "Oxford Press", BookCategory.Languages, "Shelf-A1"));
 myLibrary.addBook(new Book("Sapiens", "Yuval Noah Harari", BookCategory.History));
@@ -22,14 +21,12 @@ const elements = {
         location: document.getElementById("newLoc"),
     }
 };
-// فتح / غلق الـ modal
 elements.openModalBtn.onclick = () => elements.modal.style.display = "block";
 elements.closeBtn.onclick = () => elements.modal.style.display = "none";
 window.onclick = (event) => {
     if (event.target === elements.modal)
         elements.modal.style.display = "none";
 };
-// دالة render مع دعم enum
 function render() {
     const searchTerm = elements.searchInput.value.toLowerCase();
     const selectedCat = elements.categoryFilter.value;
@@ -75,7 +72,6 @@ function render() {
     });
     elements.bookGrid.appendChild(fragment);
 }
-// دوال global
 window.toggleStatus = (title) => {
     myLibrary.toggleAvailability(title);
     render();
@@ -86,10 +82,8 @@ window.deleteBook = (title) => {
         render();
     }
 };
-// أحداث البحث والفلترة
 elements.searchInput.addEventListener("input", render);
 elements.categoryFilter.addEventListener("change", render);
-// إضافة كتاب جديد من modal
 elements.addBtn?.addEventListener("click", () => {
     const { title, author, category, location } = elements.inputs;
     const titleVal = title.value.trim();

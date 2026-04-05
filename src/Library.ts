@@ -1,3 +1,9 @@
+/**
+ * Class: Library
+ * 
+ * Manages a collection of books in the library.
+ * Uses generics to handle any type of Book or subclass.
+ */
 import { Book } from "./Book.js";
 import { BookCategory } from "./BookCategory.js"; 
 
